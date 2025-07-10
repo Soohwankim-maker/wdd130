@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Feed Sign Up</title>
+
+    <style>
+        * {
+            margin: 0;
+        }
+
+        body {
+            background: rgb(120, 96, 64);
+        }
+
+        .jesus{
+            width: 400px;
+            object-fit: cover;
+        }
+
+        #srcpt{
+            width: 75px;
+            
+        }
+        #formContainer{
+            width: 400px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 10px solid #1d2f7c;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            position: relative;
+            height: 160px;
+            text-align: center;
+            padding-top: 30px;
+        }
+
+
+        h1 {
+            font-size: 28px;
+            margin: 0;
+            text-shadow: 2px 2px 4px #000;
+            color: white;
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        h2 {
+            font-size: 18px;
+            margin: 0;
+            text-shadow: 2px 2px 4px #000;
+            color: white;
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        h3{
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            background: white;
+            border: none;
+            font-size: 16px;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+            position: absolute;
+            top: 60px;
+            left: 37%;
+        }
+
+        form {
+            padding: 20px;
+        }
+
+        label{
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            display: inline-block;
+            width: 60%;
+            padding: 6px;
+            box-sizing: border-box;
+            margin-left: 40%;
+        }
+
+        input[type="radio"] {
+            display: inline;
+            margin-left: 70%;
+        }
+        
+        label[for="male"],
+        label[for="female"] {
+            display: inline;
+        }
+
+        .checkboxes {
+            display: inline;
+            text-align: center;
+        }
+
+        label[for="newsletter"],
+        label[for="conditions"] {
+            display: inline;
+            text-align: center;
+        }
+
+        #sub{
+            text-align: center;
+        }
+    </style>
+
+
+
+
+</head>
+
+<body>
+    <div id="formContainer">
+        <div id="header">
+        <button class="close-btn">X</button>
+        <h1>Daily Feed</h1>
+        <h2>Scripture a Day</h2>
+        <img class="jesus" src="images/jesus_feeds_5000.jpg" alt="Pic of Jesus">
+        </div>
+        <form id="myForm">
+            <h3>Sign Up for Daily Scripture Feed</h3>
+            <label for="username">User Name:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label>Gender:</label>
+            <div class="gender">
+                <input type="radio" id="male" name="gender" value="male" required>
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="female" required>
+                <label for="female">Female</label>
+            </div>
+
+            <div class="checkbox">
+            <section>
+                <input type="checkbox" id="newsletter" name="newsletter">
+                <label for="newsletter">Subscribe to newsletter</label>
+            </section>
+
+            <section>
+                <input type="checkbox" id="conditions" name="conditions" required>
+                <label for="conditions">I acknowledge the terms and conditions</label>
+            </section>
+            </div>
+
+            <section id="sub">
+                <button type="submit">Submit</button>
+            </section>
+        </form>
+
+        <div>
+            <img id="srcpt" src="images/old_testament.webp" alt="Old testament">
+            <img id="srcpt" src="images/new_testament.webp" alt="New testament">
+            <img id="srcpt" src="images/book_of_mormon.webp" alt="Book of Mormon">
+            <img id="srcpt" src="images/doctrine_and_covenants.webp" alt="D&C">
+            <img id="srcpt" src="images/pearl_of_great_price.webp" alt="Pearl of Great Price">
+        </div>
+
+    </div>
+
+    <div id="output"></div>
+
+    <script>
+        // Here is some Javascript to start looking forward to wdd131
+        document.getElementById("closeBtn").addEventListener("click", function () {
+            document.getElementById("formContainer").style.display = "none";
+         });
+        const form = document.getElementById('myForm');
+        const output = document.getElementById('output');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Stop form from actually submitting
+
+            const formData = new FormData(form);
+            const entries = [];
+
+            for (const [key, value] of formData.entries()) {
+                if (key == "password") {
+                    entries.push(`<strong>${key}</strong>: ${value} (you should probably encrypt the password)`);
+                } else {
+                    entries.push(`<strong>${key}</strong>: ${value}`);
+                }
+            }
+
+            output.innerHTML = `
+            <br>  
+            <h3>Here is the data that would be sent to the server:</h3>
+            <ul>
+                ${entries.map(item => `<li>${item}</li>`).join('')}
+            </ul>
+            `;
+                });
+    </script>
+</body>
+
+</html>
